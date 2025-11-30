@@ -6,8 +6,12 @@
         <router-link to="/admin">Dashboard</router-link>
         <router-link to="/admin/jobs">Jobs</router-link>
         <router-link to="/admin/entries">Entries</router-link>
-        <router-link to="/">Employee View</router-link>
+        <router-link to="/admin/jobs/create">Create Job</router-link>
+        <router-link to="/admin/employees/create">Create Employee</router-link>
       </nav>
+      <div style="position: absolute; top: 1rem; right: 1rem">
+        <UserMenu />
+      </div>
     </header>
 
     <main style="padding: 1rem">
@@ -16,4 +20,6 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import UserMenu from '@/components/UserMenu.vue'
+</script>

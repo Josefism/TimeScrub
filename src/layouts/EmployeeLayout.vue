@@ -1,10 +1,15 @@
 <template>
   <div class="employee-layout">
-    <nav>
-      <router-link to="/">Jobs</router-link>
-      <router-link to="/history">History</router-link>
-      <button @click="logout">Logout</button>
-    </nav>
+    <header style="padding: 1rem; border-bottom: 1px solid #ddd">
+      <h1>TimeScrub — Employee</h1>
+      <nav>
+        <router-link to="/">Jobs</router-link>
+        <router-link to="/history">History</router-link>
+      </nav>
+      <div style="position: absolute; top: 1rem; right: 1rem">
+        <UserMenu />
+      </div>
+    </header>
 
     <main>
       <router-view />
@@ -13,12 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { useAuthStore } from '@/stores/auth'
-
-const auth = useAuthStore()
-function logout() {
-  auth.logout()
-}
+import UserMenu from '@/components/UserMenu.vue'
 </script>
 
 <style scoped>
