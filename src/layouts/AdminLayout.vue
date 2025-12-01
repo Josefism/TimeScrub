@@ -4,10 +4,12 @@
       <h1>TimeScrub — Admin</h1>
       <nav style="margin-top: 0.5rem; display: flex; gap: 1rem">
         <router-link to="/admin">Dashboard</router-link>
+        <router-link to="/admin/employees">Employees</router-link>
         <router-link to="/admin/jobs">Jobs</router-link>
-        <router-link to="/admin/entries">Entries</router-link>
+        <router-link to="/admin/entries">Time Entries</router-link>
         <router-link to="/admin/jobs/create">Create Job</router-link>
         <router-link to="/admin/employees/create">Create Employee</router-link>
+        <router-link to="/admin/audit-log">Audit Log</router-link>
       </nav>
       <div style="position: absolute; top: 1rem; right: 1rem">
         <UserMenu />

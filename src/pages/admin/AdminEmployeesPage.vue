@@ -1,43 +1,44 @@
 <template>
   <div>
-    <h1>Jobs</h1>
+    <h1>Employees</h1>
 
     <label>
       <input type="checkbox" v-model="showArchived" />
-      Show archived jobs
+      Show archived employees
     </label>
 
-    <table class="jobs-table">
+    <table class="emp-table">
       <thead>
         <tr>
           <th>Name</th>
-          <th>Address</th>
+          <th>Email</th>
+          <th>Role</th>
           <th>Status</th>
           <th style="width: 160px"></th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="job in filteredJobs" :key="job.id">
-          <td>{{ job.name }}</td>
-          <td>
-            {{ job.addressLine1 }}<br />
-            {{ job.city }}, {{ job.state }} {{ job.postalCode }}
-          </td>
+        <tr v-for="emp in filteredEmployees" :key="emp.id">
+          <td>{{ emp.name }}</td>
+          <td>{{ emp.email }}</td>
+          <td>{{ emp.role }}</td>
 
           <td>
-            <span v-if="job.deletedAt" class="badge archived">Archived</span>
+            <span v-if="emp.deletedAt" class="badge archived">Archived</span>
             <span v-else class="badge active">Active</span>
           </td>
 
           <td>
-            <template v-if="!job.deletedAt">
-              <router-link :to="`/admin/jobs/${job.id}/edit`" class="edit-link"> Edit </router-link>
+            <template v-if="!emp.deletedAt">
+              <router-link :to="`/admin/employees/${emp.id}/edit`" class="edit-link">
+                Edit
+              </router-link>
 
-              <button class="archive-btn" @click="archive(job.id)">Archive</button>
+              <button class="archive-btn" @click="archive(emp.id)">Archive</button>
             </template>
 
             <template v-else>
-              <button class="restore-btn" @click="restore(job.id)">Restore</button>
+              <button class="restore-btn" @click="restore(emp.id)">Restore</button>
             </template>
           </td>
         </tr>
@@ -52,57 +53,54 @@
 import { ref, computed, onMounted } from 'vue'
 import http from '@/api/http'
 
-interface AdminJob {
+interface AdminEmployee {
   id: number
   name: string
-  addressLine1: string
-  addressLine2: string | null
-  city: string
-  state: string
-  postalCode: string
+  email: string
+  role: string
   deletedAt: string | null
 }
 
-const jobs = ref<AdminJob[]>([])
+const employees = ref<AdminEmployee[]>([])
 const showArchived = ref(false)
 const error = ref('')
 
-async function loadJobs() {
+async function loadEmployees() {
   error.value = ''
   try {
-    const res = await http.get('/admin/jobs')
-    jobs.value = res.data
+    const res = await http.get('/admin/employees')
+    employees.value = res.data
   } catch (err: any) {
-    error.value = err.response?.data?.error || 'Failed to load jobs'
+    error.value = err.response?.data?.error || 'Failed to load employees'
   }
 }
 
 async function archive(id: number) {
-  await http.delete(`/admin/jobs/${id}`)
-  loadJobs()
+  await http.delete(`/admin/employees/${id}`)
+  loadEmployees()
 }
 
 async function restore(id: number) {
-  await http.post(`/admin/jobs/${id}/restore`)
-  loadJobs()
+  await http.post(`/admin/employees/${id}/restore`)
+  loadEmployees()
 }
 
-const filteredJobs = computed(() => {
-  if (showArchived.value) return jobs.value
-  return jobs.value.filter((job) => !job.deletedAt)
+const filteredEmployees = computed(() => {
+  if (showArchived.value) return employees.value
+  return employees.value.filter((e) => !e.deletedAt)
 })
 
-onMounted(loadJobs)
+onMounted(loadEmployees)
 </script>
 
 <style scoped>
-.jobs-table {
+.emp-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
 }
-.jobs-table th,
-.jobs-table td {
+.emp-table th,
+.emp-table td {
   border: 1px solid #ddd;
   padding: 8px;
 }

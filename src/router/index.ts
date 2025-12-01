@@ -10,10 +10,14 @@ import JobDetailPage from '@/pages/employee/JobDetailPage.vue'
 import HistoryPage from '@/pages/employee/HistoryPage.vue'
 
 import AdminDashboardPage from '@/pages/admin/AdminDashboardPage.vue'
+import AdminEmployeesPage from '@/pages/admin/AdminEmployeesPage.vue'
 import AdminJobsPage from '@/pages/admin/AdminJobsPage.vue'
 import AdminEntriesPage from '@/pages/admin/AdminEntriesPage.vue'
 import AdminCreateJobPage from '@/pages/admin/AdminCreateJobPage.vue'
+import AdminEditJobPage from '@/pages/admin/AdminEditJobPage.vue'
 import AdminCreateEmployeePage from '@/pages/admin/AdminCreateEmployeePage.vue'
+import AdminEditEmployeePage from '@/pages/admin/AdminEditEmployeePage.vue'
+import AdminAuditLogPage from '@/pages/admin/AdminAuditLogPage.vue'
 
 import { useAuthStore } from '@/stores/auth'
 
@@ -66,6 +70,11 @@ const router = createRouter({
           component: AdminDashboardPage,
         },
         {
+          path: 'employees',
+          name: 'admin-employees',
+          component: AdminEmployeesPage,
+        },
+        {
           path: 'jobs',
           name: 'admin-jobs',
           component: AdminJobsPage,
@@ -82,9 +91,27 @@ const router = createRouter({
           meta: { requiresAuth: true, role: ['ADMIN'] },
         },
         {
+          path: 'jobs/:id/edit',
+          name: 'admin-edit-job',
+          component: AdminEditJobPage,
+          meta: { requiresAuth: true, role: ['ADMIN'] },
+        },
+        {
           path: 'employees/create',
           name: 'admin-create-employee',
           component: AdminCreateEmployeePage,
+          meta: { requiresAuth: true, role: ['ADMIN'] },
+        },
+        {
+          path: 'employees/:id/edit',
+          name: 'admin-edit-employee',
+          component: AdminEditEmployeePage,
+          meta: { requiresAuth: true, role: ['ADMIN'] },
+        },
+        {
+          path: 'audit-log',
+          name: 'admin-audit-log',
+          component: AdminAuditLogPage,
           meta: { requiresAuth: true, role: ['ADMIN'] },
         },
       ],
