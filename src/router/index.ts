@@ -10,14 +10,23 @@ import JobDetailPage from '@/pages/employee/JobDetailPage.vue'
 import HistoryPage from '@/pages/employee/HistoryPage.vue'
 
 import AdminDashboardPage from '@/pages/admin/AdminDashboardPage.vue'
-import AdminEmployeesPage from '@/pages/admin/AdminEmployeesPage.vue'
-import AdminJobsPage from '@/pages/admin/AdminJobsPage.vue'
+import AdminEmployeesPage from '@/pages/admin/employees/AdminEmployeesPage.vue'
+import AdminJobsPage from '@/pages/admin/jobs/AdminJobsPage.vue'
 import AdminEntriesPage from '@/pages/admin/AdminEntriesPage.vue'
-import AdminCreateJobPage from '@/pages/admin/AdminCreateJobPage.vue'
-import AdminEditJobPage from '@/pages/admin/AdminEditJobPage.vue'
-import AdminCreateEmployeePage from '@/pages/admin/AdminCreateEmployeePage.vue'
-import AdminEditEmployeePage from '@/pages/admin/AdminEditEmployeePage.vue'
-import AdminAuditLogPage from '@/pages/admin/AdminAuditLogPage.vue'
+import AdminCreateJobPage from '@/pages/admin/jobs/AdminCreateJobPage.vue'
+import AdminEditJobPage from '@/pages/admin/jobs/AdminEditJobPage.vue'
+import AdminCreateEmployeePage from '@/pages/admin/employees/AdminCreateEmployeePage.vue'
+import AdminEditEmployeePage from '@/pages/admin/employees/AdminEditEmployeePage.vue'
+
+import AdminCustomersPage from '@/pages/admin/customers/AdminCustomersPage.vue'
+import AdminCreateCustomerPage from '@/pages/admin/customers/AdminCreateCustomerPage.vue'
+import AdminEditCustomerPage from '@/pages/admin/customers/AdminEditCustomerPage.vue'
+
+import AdminLocationsPage from '@/pages/admin/locations/AdminLocationsPage.vue'
+import AdminCreateLocationPage from '@/pages/admin/locations/AdminCreateLocationPage.vue'
+import AdminEditLocationPage from '@/pages/admin/locations/AdminEditLocationPage.vue'
+
+import AdminAuditLogPage from '@/pages/admin/audit/AdminAuditLogPage.vue'
 
 import { useAuthStore } from '@/stores/auth'
 
@@ -75,6 +84,30 @@ const router = createRouter({
           component: AdminEmployeesPage,
         },
         {
+          path: 'customers',
+          component: AdminCustomersPage,
+        },
+        {
+          path: 'customers/create',
+          component: AdminCreateCustomerPage,
+        },
+        {
+          path: 'customers/:id',
+          component: AdminEditCustomerPage,
+        },
+        {
+          path: 'customers/:customerId/locations',
+          component: AdminLocationsPage,
+        },
+        {
+          path: 'customers/:customerId/locations/create',
+          component: AdminCreateLocationPage,
+        },
+        {
+          path: 'locations/:id',
+          component: AdminEditLocationPage,
+        },
+        {
           path: 'jobs',
           name: 'admin-jobs',
           component: AdminJobsPage,
@@ -127,7 +160,7 @@ const router = createRouter({
 
 export default router
 
-router.beforeEach((to, from) => {
+router.beforeEach((to) => {
   const auth = useAuthStore()
 
   const isPublic = to.meta.public === true
